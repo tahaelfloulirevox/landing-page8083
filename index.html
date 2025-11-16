@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>اكتشف هديتك المجانية!</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    max-width: 400px;
+    text-align: center;
+}
+h1 {
+    color: #333;
+}
+input[type="text"], input[type="email"] {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+button {
+    background: #ff7e5f;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+button:hover {
+    background: #feb47b;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>اكتشف هديتك المجانية اليوم!</h1>
+    <p>ادخل بياناتك لتعرف هديتك</p>
+    <form id="landingForm">
+        <input type="text" name="name" placeholder="الاسم الكامل" required><br>
+        <input type="email" name="email" placeholder="البريد الإلكتروني" required><br>
+        <button type="submit">احصل على هديتك!</button>
+    </form>
+    <p id="thanksMsg" style="display:none;color:green;">شكراً! سيتم التواصل معك قريباً.</p>
+</div>
+
+<script>
+// جمع البيانات
+document.getElementById('landingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email')
+    };
+    // إرسال البيانات إلى Google Sheets أو أي سيرفر آمن
+    fetch('https://your-server-or-google-sheet-endpoint', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }).then(() => {
+        document.getElementById('landingForm').style.display = 'none';
+        document.getElementById('thanksMsg').style.display = 'block';
+    }).catch(err => console.error(err));
+});
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شكراً لك! - هديتك في الطريق</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        .success-icon {
+            font-size: 80px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .next-steps {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: right;
+        }
+        .btn {
+            display: inline-block;
+            background: #ff7e5f;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #feb47b;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✓</div>
+        <h1>تم استلام طلبك بنجاح!</h1>
+        <p>شكراً لك <strong id="userName"></strong> على مشاركة بياناتك</p>
+        
+        <div class="next-steps">
+            <h3>الخطوات التالية:</h3>
+            <ul style="text-align: right; margin-right: 20px;">
+                <li>سيصلك رابط التحميل على بريدك الإلكتروني خلال دقائق</li>
+                <li>تحقق من مجلد البريد العشوائي إذا لم تجد الرسالة</li>
+                <li>لأي استفسار، لا تتردد في التواصل معنا</li>
+            </ul>
+        </div>
+        
+        <a href="#" class="btn">تحميل الهدية الآن</a>
+        <a href="index.html" class="btn" style="background: #6c757d;">العودة للصفحة الرئيسية</a>
+    </div>
+
+    <script>
+        // استرجاع اسم المستخدم من التخزين المحلي أو المعلمات
+        const urlParams = new URLSearchParams(window.location.search);
+        const userName = urlParams.get('name') || localStorage.getItem('userName') || 'عزيزي/عزيزتي';
+        document.getElementById('userName').textContent = userName;
+    </script>
+</body>
+</html>
